@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Arms License Record Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #e8f5e9;
+            margin: 0;
+            padding: 20px;
+        }
+        .box {
+            max-width: 500px;
+            margin: 60px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0002;
+            text-align: center;
+        }
+        h1 {
+            color: #126b38;
+            font-size: 25px;
+        }
+        p {
+            color: #444;
+        }
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 13px;
+            margin: 12px 0;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #168344;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+        }
+        #result {
+            margin-top: 20px;
+            overflow-wrap: anywhere;
+        }
+        .notice {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>PRIVATE ARMS LICENSE RECORD SEARCH</h1>
+        <p>Enter a 13-digit CNIC number to search the demo records.</p>
+
+        <input id="cnic" type="text" maxlength="13"
+               inputmode="numeric" placeholder="Enter CNIC without dashes">
+
+        <button onclick="searchRecord()">Search Record</button>
+
+        <div id="result"></div>
+
+        <p class="notice">
+            Private demonstration only. Not an official government website.
+            Only fictional sample records are included.
+        </p>
+    </div>
+
+    <script>
+        const records = {
+            "1234512345671": {
+                name: "Demo Person One",
+                license: "DEMO-1001",
+                status: "Sample Record"
+            },
+            "3520212345679": {
+                name: "Demo Person Two",
+                license: "DEMO-1002",
+                status: "Sample Record"
+            }
+        };
+
+        function searchRecord() {
+            const cnic = document.getElementById("cnic").value.trim();
+            const result = document.getElementById("result");
+
+            if (!/^\d{13}$/.test(cnic)) {
+                result.textContent = "Please enter exactly 13 digits.";
+                return;
+            }
+
+            if (records[cnic]) {
+                const record = records[cnic];
+                result.innerHTML = `
+                    <h3>Demo Record Found</h3>
+                    <p>Name: ${record.name}</p>
+                    <p>License Number: ${record.license}</p>
+                    <p>Status: ${record.status}</p>
+                `;
+            } else {
+                result.textContent = "No matching demo record found.";
+            }
+        }
+    </script>
+</body>
+</html>
